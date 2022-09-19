@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="bootstrap-4.5.3-dist/css/bootstrap.css">
+    <link rel="stylesheet" href="alarm.css">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+        <table>
+            <tr>
+                <td colspan="3"> <h1 align="center" class="mt-5">CountDown Alarm Timer</h1></td>
+            </tr>
+            <tr>
+                <td colspan="3" class="mt-5">
+                    <input type="text" id="hr" placeholder="hrs" class="dinputs" > :
+                    <input type="text" id="mn" placeholder="mins" class="dinputs"> : 
+                    <input type="text" id="sc"placeholder="secs" class="dinputs">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" align="center"><button  class="btn btn-danger" onclick="alarmSet()">Start Alarm</button>  <button class="btn btn-info" onclick="resetTime()">Reset</button>
+               <button type="button" class="btn btn-primary"  onclick="stopTime()">Stop Time </button>
+   
+                <select name="" id="ampm">
+                    <option value="" >AM</option>
+                    <option value="" >PM</option>
+                </select></td>
+            </tr>
+        </table>
+        <div id="gettym"></div>
+        <div id="myqstn"></div>
+        <input type="text" name="" id="myanswr">
+    </center>
+    <audio src="Fireboy_DML_ft_Asake_-_Bandana_Audio_.mp3" id="snd" loop preload="auto"></audio>
+    <button class="btn btn-success mx-auto mt-3" id="get" onclick="submitAns()">Submit</button>
+    <script type="text/javascript">
+       myanswr.style.display= "none"
+       get.style.display="none"
+        function shwcrntTime(){
+            var myDate= new Date();
+            var myHour=myDate.getHours() ; 
+            var myMinutes= myDate.getMinutes();
+            var mySeconds= myDate.getSeconds();
+            var ap= (myDate.getHours()) < 12 ? 'AM' : 'PM';
+            gettym.innerHTML=myHour + " : " + myMinutes + " : " + mySeconds + " " + ap;
+                
+            
+            if (hr.value == myHour && mn.value == myMinutes && sc.value == mySeconds) {
+                // alert("Hi")
+                snd.play()
+             }
+           
+        }
+        var curntTime = setInterval(shwcrntTime,1000);
+        function alarmSet(){
+            var myDate= new Date();
+            var myHour=myDate.getHours() ; 
+            var myMinutes= myDate.getMinutes();
+            var mySeconds= myDate.getSeconds();
+            if (hr.value == myHour && mn.value == myMinutes && sc.value == mySeconds) {
+                // alert("Hi")
+                snd.play();
+             }
+        }
+       
+        function resetTime(){
+            hr.value = "";
+            mn.value = "";
+            sc.value = "";
+            snd.pause();
+        }
+        
+        function stopTime(){
+            var myRndNum= Math.floor(Math.random()*1000);
+            var myRandNum= Math.floor(Math.random()*1000);
+            var myRandoNum= Math.floor(Math.random()*1000);
+            var sign = [ '+', '-', '/', '*'];
+            var myRndSign= Math.floor(Math.random()*3);
+            console.log(myRndSign);
+            myanswr.style.display="block";
+            myqstn.innerHTML=  myRndNum +  sign[myRndSign]  + myRandNum;
+            get.style.display= "block"
+                
+            }
+        function submitAns(){
+            var output= eval(myqstn.innerHTML);
+            var mainOutput= Math.round(output);
+            console.log(mainOutput)
+            setTimeout(function(){
+                if(myanswr.value==mainOutput){
+                    alert`Don't go back to sleep oo!!!`
+                    snd.pause();
+                }
+                if(myanswr.value!=mainOutput){
+                    alert`Incorrect answer. Please Try again!`
+                }
+                else(
+                    snd.play
+                )
+            }
+            ,2000)
+
+        
+        }
+
+        
+    </script>
+</body>
+</html>
